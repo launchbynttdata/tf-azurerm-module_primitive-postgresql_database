@@ -22,4 +22,3 @@ resource "azurerm_postgresql_flexible_server_database" "database" {
     prevent_destroy = false
   }
 }
-

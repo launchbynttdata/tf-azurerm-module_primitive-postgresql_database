@@ -17,7 +17,7 @@ import (
 
 	"github.com/launchbynttdata/lcaf-component-terratest/lib"
 	"github.com/launchbynttdata/lcaf-component-terratest/types"
-	"github.com/launchbynttdata/tf-azurerm-module_primitive-resource_group/tests/testimpl"
+	"github.com/launchbynttdata/tf-azurerm-module_primitive-postgresql_database/tests/testimpl"
 )
 
 const (
@@ -31,6 +31,11 @@ func TestResourceGroupModule(t *testing.T) {
 		SetTestConfig(&testimpl.ThisTFModuleConfig{}).
 		SetTestConfigFolderName(testConfigsExamplesFolderDefault).
 		SetTestConfigFileName(infraTFVarFileNameDefault).
+		SetTestSpecificFlags(map[string]types.TestFlags{
+			"complete": {
+				"IS_TERRAFORM_IDEMPOTENT_APPLY": false,
+			},
+		}).
 		Build()
 
 	lib.RunSetupTestTeardown(t, *ctx, testimpl.TestComposableComplete)

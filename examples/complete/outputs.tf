@@ -9,12 +9,17 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-output "id" {
-  description = "resource group id"
-  value       = module.resource_group.id
-}
-
-output "name" {
+output "resource_group_name" {
   description = "resource group name"
   value       = module.resource_names["rg"][var.resource_names_strategy]
+}
+
+output "database_name" {
+  description = "The ID of the Azure PostgreSQL Flexible Server Database"
+  value       = module.resource_names["db"][var.resource_names_strategy]
+}
+
+output "server_name" {
+  description = "The name of the Azure PostgreSQL Flexible Server"
+  value       = module.resource_names["postgresql_server"][var.resource_names_strategy]
 }

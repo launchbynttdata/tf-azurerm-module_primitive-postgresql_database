@@ -1,13 +1,17 @@
 package testimpl
 
 import (
+	"context"
+	"log"
 	"os"
 	"testing"
 
-	"github.com/gruntwork-io/terratest/modules/azure"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/launchbynttdata/lcaf-component-terratest/types"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/postgresql/armpostgresqlflexibleservers/v2"
 )
 
 func TestComposableComplete(t *testing.T, ctx types.TestContext) {
@@ -17,18 +21,26 @@ func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 		t.Fatal("ARM_SUBSCRIPTION_ID environment variable is not set")
 	}
 
-	rgName := terraform.Output(t, ctx.TerratestTerraformOptions(), "name")
-	rgLocation := terraform.Output(t, ctx.TerratestTerraformOptions(), "location")
+	cred, err := azidentity.NewDefaultAzureCredential(nil)
+	if err != nil {
+		log.Fatalf("failed to obtain a credential: %v", err)
+	}
 
-	t.Run("TestAlwaysSucceeds", func(t *testing.T) {
-		assert.Equal(t, "foo", "foo", "Should always be the same!")
-		assert.NotEqual(t, "foo", "bar", "Should never be the same!")
-	})
+	databaseClient, err := armpostgresqlflexibleservers.NewDatabasesClient(subscriptionId, cred, nil)
+	if err != nil {
+		log.Fatalf("failed to create database client: %v", err)
+	}
 
-	t.Run("ResourceGroupWasCreated", func(t *testing.T) {
-		assert.True(t, azure.ResourceGroupExists(t, rgName, subscriptionId), "Resource group didn't exist!")
-		actualResourceGroup := azure.GetAResourceGroup(t, rgName, subscriptionId)
-		assert.Equal(t, rgName, *actualResourceGroup.Name, "Resource group actual name didn't match expected")
-		assert.Equal(t, rgLocation, *actualResourceGroup.Location, "Resource group actual location didn't match expected")
+	rgName := terraform.Output(t, ctx.TerratestTerraformOptions(), "resource_group_name")
+	serverName := terraform.Output(t, ctx.TerratestTerraformOptions(), "server_name")
+	databaseName := terraform.Output(t, ctx.TerratestTerraformOptions(), "database_name")
+
+	t.Run("DatabaseWasCreated", func(t *testing.T) {
+		// Perform a lookup and verify that our postgres server was created
+		_, err := databaseClient.Get(context.TODO(), rgName, serverName, databaseName, nil)
+		if err != nil {
+			t.Fatalf("failed to get database: %v", err)
+		}
+		assert.NoError(t, err, "PostgreSQL Database should exist")
 	})
 }

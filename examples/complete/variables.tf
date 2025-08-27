@@ -130,7 +130,7 @@ variable "storage_mb" {
 variable "postgres_version" {
   description = "The PostgreSQL version to use. Possible values include: '11', '12', '13', '14', '15', '16'"
   type        = string
-  default     = "11"
+  default     = "16"
   validation {
     condition     = contains(["11", "12", "13", "14", "15", "16"], var.postgres_version)
     error_message = "postgres_version must be one of the following values: '11', '12', '13', '14', '15', '16'"
