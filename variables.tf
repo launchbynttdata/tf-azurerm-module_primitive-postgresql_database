@@ -9,24 +9,26 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-variable "location" {
-  description = "(Required) The Azure Region where the Resource Group should exist. Changing this forces a new Resource Group to be created."
-  type        = string
-}
-
-variable "managed_by" {
-  description = "(Optional) The ID of the resource that manages this resource group."
-  type        = string
-  default     = null
-
-}
-variable "tags" {
-  description = "(Optional) A mapping of tags which should be assigned to the Resource Group."
-  type        = map(string)
-  default     = {}
-}
 
 variable "name" {
   description = "The name of the database"
   type        = string
+}
+
+variable "server_id" {
+  description = "The ID of the server to associate with the database"
+  type        = string
+
+}
+
+variable "collation" {
+  description = "The collation setting for the database"
+  type        = string
+  default     = "en_US.utf8"
+}
+
+variable "charset" {
+  description = "The character set to use for the database"
+  type        = string
+  default     = "UTF8"
 }

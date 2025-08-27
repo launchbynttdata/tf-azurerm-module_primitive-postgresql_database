@@ -10,16 +10,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-resource "azurerm_postgresql_flexible_server_database" "database" {
-  name      = var.name
-  server_id = var.server_id
-  collation = var.collation
-  charset   = var.charset
-
-
-  # prevent the possibility of accidental data loss
-  lifecycle {
-    prevent_destroy = false
-  }
+locals {
+  tags = merge(
+    var.tags,
+    {
+      provisioner = "terraform"
+  })
 }
-
