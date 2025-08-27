@@ -1,11 +1,11 @@
-# tf-az-module-postgresql_database
+# tf-azurerm-module_primitive-postgresql_database
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC_BY--NC--ND_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 
 ## Overview
 
-This terraform module with create a new resource group in the Azure portal
+This module will create a new database within an existing database server.
 
 ## Pre-Commit hooks
 [.pre-commit-config.yaml](.pre-commit-config.yaml) file defines certain `pre-commit` hooks that are relevant to terraform, golang and common linting tasks. There are no custom hooks added.
