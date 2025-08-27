@@ -15,10 +15,4 @@ resource "azurerm_postgresql_flexible_server_database" "database" {
   server_id = var.server_id
   collation = var.collation
   charset   = var.charset
-
-
-  # prevent the possibility of accidental data loss
-  lifecycle {
-    prevent_destroy = false
-  }
 }
