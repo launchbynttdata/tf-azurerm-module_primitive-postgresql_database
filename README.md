@@ -101,7 +101,7 @@ If `make check` target is successful, developer is good to commit the code to pr
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.0 |
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 3.77 |
 
@@ -112,13 +112,13 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [azurerm_postgresql_flexible_server_database.database](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_database) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_name"></a> [name](#input\_name) | The name of the database | `string` | n/a | yes |
 | <a name="input_server_id"></a> [server\_id](#input\_server\_id) | The ID of the server to associate with the database | `string` | n/a | yes |
 | <a name="input_collation"></a> [collation](#input\_collation) | The collation setting for the database | `string` | `"en_US.utf8"` | no |
@@ -127,6 +127,6 @@ No modules.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the Azure PostgreSQL Flexible Server Database |
 <!-- END_TF_DOCS -->
