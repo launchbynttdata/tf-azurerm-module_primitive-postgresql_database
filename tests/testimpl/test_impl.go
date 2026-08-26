@@ -31,9 +31,9 @@ func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 		log.Fatalf("failed to create database client: %v", err)
 	}
 
-	rgName := terraform.Output(t, ctx.TerratestTerraformOptions(), "resource_group_name")
-	serverName := terraform.Output(t, ctx.TerratestTerraformOptions(), "server_name")
-	databaseName := terraform.Output(t, ctx.TerratestTerraformOptions(), "database_name")
+	rgName := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "resource_group_name")
+	serverName := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "server_name")
+	databaseName := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "database_name")
 
 	t.Run("DatabaseWasCreated", func(t *testing.T) {
 		// Perform a lookup and verify that our postgres server was created
