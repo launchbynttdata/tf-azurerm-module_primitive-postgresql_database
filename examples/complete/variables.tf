@@ -21,7 +21,7 @@ variable "resource_names_map" {
   type = map(object({
     name       = string
     max_length = optional(number, 60)
-    region     = optional(string, "eastus2")
+    region     = optional(string, "centralus")
   }))
 
   default = {
